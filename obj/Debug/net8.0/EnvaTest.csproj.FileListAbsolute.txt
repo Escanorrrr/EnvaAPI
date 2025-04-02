@@ -120,3 +120,4 @@ C:\Users\ramaz\Desktop\Dotnet_projeleri\EnvaTest\EnvaTest\bin\Debug\net8.0\Micro
 C:\Users\ramaz\Desktop\Dotnet_projeleri\EnvaTest\EnvaTest\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\ramaz\Desktop\Dotnet_projeleri\EnvaTest\EnvaTest\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\ramaz\Desktop\Dotnet_projeleri\EnvaTest\EnvaTest\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\ramaz\Desktop\Dotnet_projeleri\EnvaTest\EnvaTest\obj\Debug\net8.0\EnvaTest.sourcelink.json

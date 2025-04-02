@@ -3,11 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EnvaTest.Entities
 {
-    public class Customer
+    public class Customer : BaseEntity
     {
-        [Key]
-        public long Id { get; set; }
-
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
@@ -30,7 +27,6 @@ namespace EnvaTest.Entities
         [StringLength(500)]
         public string Address { get; set; }
 
-        [Required]
         public DateTime RegistrationDate { get; set; }
 
         [Required]
@@ -38,24 +34,19 @@ namespace EnvaTest.Entities
         public string Username { get; set; }
 
         [Required]
-        [StringLength(60)] // Bcrypt hash için yeterli uzunluk
+        [StringLength(60)]
         public string Password { get; set; }
 
         public DateTime? LastLoginDate { get; set; }
 
-        [Required]
         public bool IsAdmin { get; set; }
 
         [StringLength(20)]
         public string TaxId { get; set; }
 
-        [Required]
         public bool Active { get; set; }
 
-        [Required]
-        public DateTime CreatedAt { get; set; }
-
-        [Required]
-        public DateTime UpdatedAt { get; set; }
+        // Navigation property
+        public virtual ICollection<Invoice> Invoices { get; set; }
     }
 } 

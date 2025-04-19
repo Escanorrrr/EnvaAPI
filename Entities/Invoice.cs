@@ -19,6 +19,9 @@ namespace EnvaTest.Entities
         [Column(TypeName = "decimal(18,2)")]
         public decimal Amount { get; set; }
 
+        [Column(TypeName = "double")]
+        public double? GHG { get; set; }
+
         // Navigation properties
         [ForeignKey("CustomerId")]
         public virtual Customer Customer { get; set; }

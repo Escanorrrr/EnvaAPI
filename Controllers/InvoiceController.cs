@@ -28,18 +28,36 @@ namespace EnvaTest.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        [HttpGet("MyInvoices")]
-        public async Task<ActionResult<Result<IEnumerable<InvoiceResponseDTO>>>> GetMyInvoices()
+        [HttpGet("date-range")]
+        public async Task<ActionResult<Result<IEnumerable<InvoiceResponseDTO>>>> GetInvoiceByDateRange([FromQuery] InvoiceDateDTO dateRange)
         {
-            var customerId = long.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            var result = await _invoiceService.GetCustomerInvoicesAsync(customerId);
+            var isAdmin = User.IsInRole("Admin");
+            var currentUserId = long.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            
+            var result = await _invoiceService.GetInvoiceByDateRangeAsync(dateRange, isAdmin, currentUserId);
             return StatusCode(result.StatusCode, result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
         public async Task<ActionResult<Result<InvoiceResponseDTO>>> GetInvoice(long id)
         {
-            var result = await _invoiceService.GetInvoiceByIdAsync(id);
+            var result = await _invoiceService.GetCustomerInvoicesAsync(id);
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Result<InvoiceResponseDTO>>> UpdateInvoice(long id, [FromForm] InvoiceUpdateDTO updateDTO)
+        {
+            var result = await _invoiceService.UpdateInvoiceAsync(id, updateDTO);
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpGet("types")]
+        public async Task<ActionResult<Result<IEnumerable<InvoiceTypeResponseDTO>>>> GetInvoiceTypes()
+        {
+            var result = await _invoiceService.GetInvoiceTypesAsync();
             return StatusCode(result.StatusCode, result);
         }
     }

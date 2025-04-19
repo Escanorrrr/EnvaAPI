@@ -9,6 +9,8 @@ using Pomelo.EntityFrameworkCore.MySql;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
+using EnvaTest.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -69,14 +71,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             ValidIssuer = builder.Configuration["JWT:Issuer"],
             ValidAudience = builder.Configuration["JWT:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
         };
     });
 
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IInvoiceService, InvoiceService>();
+builder.Services.AddScoped<ICalculatorService, CalculatorService>();
+builder.Services.AddScoped<TokenHelper>();
 
 builder.Services.AddDbContext<EnvaContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),

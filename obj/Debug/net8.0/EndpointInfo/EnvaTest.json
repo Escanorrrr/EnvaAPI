@@ -1,0 +1,1469 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "EnvaTest API",
+    "description": "EnvaTest için REST API",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/Auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenDTOResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenDTOResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenDTOResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Calculator/tehlikesiz-atik": {
+      "post": {
+        "tags": [
+          "Calculator"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TehlikesizAtikDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TehlikesizAtikDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TehlikesizAtikDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DoubleResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DoubleResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DoubleResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Calculator/yangin-tupu": {
+      "post": {
+        "tags": [
+          "Calculator"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/YanginTupuDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/YanginTupuDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/YanginTupuDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DoubleResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DoubleResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DoubleResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Calculator/dogalgaz": {
+      "post": {
+        "tags": [
+          "Calculator"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DogalgazDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DogalgazDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DogalgazDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DoubleResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DoubleResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DoubleResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Calculator/dizel": {
+      "post": {
+        "tags": [
+          "Calculator"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DizelDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DizelDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DizelDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DoubleResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DoubleResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DoubleResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Customer/GetAllCustomers": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerListDTOIEnumerableResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerListDTOIEnumerableResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerListDTOIEnumerableResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Customer/GetCustomerById/{id}": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Customer/CreateCustomer": {
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerCreateDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerCreateDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerCreateDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Customer/UpdateCustomer/{id}": {
+      "put": {
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerUpdateDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerUpdateDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerUpdateDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Customer/UpdateCustomerStatus/{id}": {
+      "put": {
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "isActive",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Customer/ChangePassword/{id}": {
+      "put": {
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Invoice/Upload": {
+      "post": {
+        "tags": [
+          "Invoice"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "Amount",
+                  "InvoiceFile",
+                  "InvoiceTypeId"
+                ],
+                "type": "object",
+                "properties": {
+                  "InvoiceFile": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "InvoiceTypeId": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "Amount": {
+                    "minimum": 0,01,
+                    "type": "number",
+                    "format": "double"
+                  }
+                }
+              },
+              "encoding": {
+                "InvoiceFile": {
+                  "style": "form"
+                },
+                "InvoiceTypeId": {
+                  "style": "form"
+                },
+                "Amount": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceResponseDTOResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceResponseDTOResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceResponseDTOResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Invoice/date-range": {
+      "get": {
+        "tags": [
+          "Invoice"
+        ],
+        "parameters": [
+          {
+            "name": "CustomerId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "BaslangicTarihi",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "BitisTarihi",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceResponseDTOIEnumerableResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceResponseDTOIEnumerableResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceResponseDTOIEnumerableResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Invoice/{id}": {
+      "get": {
+        "tags": [
+          "Invoice"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceResponseDTOResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceResponseDTOResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceResponseDTOResult"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Invoice"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "InvoiceFile": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "InvoiceTypeId": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "Amount": {
+                    "type": "number",
+                    "format": "double"
+                  }
+                }
+              },
+              "encoding": {
+                "InvoiceFile": {
+                  "style": "form"
+                },
+                "InvoiceTypeId": {
+                  "style": "form"
+                },
+                "Amount": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceResponseDTOResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceResponseDTOResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceResponseDTOResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Invoice/types": {
+      "get": {
+        "tags": [
+          "Invoice"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceTypeResponseDTOIEnumerableResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceTypeResponseDTOIEnumerableResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceTypeResponseDTOIEnumerableResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ChangePasswordDTO": {
+        "required": [
+          "confirmNewPassword",
+          "currentPassword",
+          "newPassword"
+        ],
+        "type": "object",
+        "properties": {
+          "currentPassword": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "newPassword": {
+            "maxLength": 100,
+            "minLength": 6,
+            "type": "string"
+          },
+          "confirmNewPassword": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Customer": {
+        "required": [
+          "address",
+          "email",
+          "lastName",
+          "name",
+          "password",
+          "phoneNumber",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "name": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "lastName": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "email": {
+            "maxLength": 150,
+            "minLength": 0,
+            "type": "string",
+            "format": "email"
+          },
+          "phoneNumber": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string",
+            "format": "tel"
+          },
+          "address": {
+            "maxLength": 500,
+            "minLength": 0,
+            "type": "string"
+          },
+          "registrationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "username": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
+          },
+          "password": {
+            "maxLength": 60,
+            "minLength": 0,
+            "type": "string"
+          },
+          "lastLoginDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "isAdmin": {
+            "type": "boolean"
+          },
+          "taxId": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "invoices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Invoice"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerCreateDTO": {
+        "required": [
+          "address",
+          "email",
+          "lastName",
+          "name",
+          "password",
+          "phoneNumber",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "lastName": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "email": {
+            "maxLength": 150,
+            "minLength": 0,
+            "type": "string",
+            "format": "email"
+          },
+          "phoneNumber": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string",
+            "format": "tel"
+          },
+          "address": {
+            "maxLength": 500,
+            "minLength": 0,
+            "type": "string"
+          },
+          "username": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
+          },
+          "password": {
+            "maxLength": 100,
+            "minLength": 6,
+            "type": "string"
+          },
+          "taxId": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "isAdmin": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerListDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "registrationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastLoginDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerListDTOIEnumerableResult": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CustomerListDTO"
+            },
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerResult": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Customer"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerUpdateDTO": {
+        "required": [
+          "address",
+          "email",
+          "lastName",
+          "name",
+          "phoneNumber",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "lastName": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "email": {
+            "maxLength": 150,
+            "minLength": 0,
+            "type": "string",
+            "format": "email"
+          },
+          "phoneNumber": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string",
+            "format": "tel"
+          },
+          "address": {
+            "maxLength": 500,
+            "minLength": 0,
+            "type": "string"
+          },
+          "username": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
+          },
+          "taxId": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DizelDto": {
+        "type": "object",
+        "properties": {
+          "faaliyetVerisiLitre": {
+            "type": "number",
+            "format": "double"
+          },
+          "toplamUretimTon": {
+            "type": "number",
+            "format": "double"
+          },
+          "invoiceId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DogalgazDto": {
+        "type": "object",
+        "properties": {
+          "faaliyetVerisiM3": {
+            "type": "number",
+            "format": "double"
+          },
+          "toplamUretimTon": {
+            "type": "number",
+            "format": "double"
+          },
+          "invoiceId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DoubleResult": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "data": {
+            "type": "number",
+            "format": "double"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Invoice": {
+        "required": [
+          "amount",
+          "customerId",
+          "invoicePath",
+          "invoiceTypeId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "customerId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "invoiceTypeId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "invoicePath": {
+            "maxLength": 500,
+            "minLength": 0,
+            "type": "string"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "ghg": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "customer": {
+            "$ref": "#/components/schemas/Customer"
+          },
+          "invoiceType": {
+            "$ref": "#/components/schemas/InvoiceType"
+          }
+        },
+        "additionalProperties": false
+      },
+      "InvoiceResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "invoicePath": {
+            "type": "string",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "customerId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "customerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "invoiceTypeId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "invoiceTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "InvoiceResponseDTOIEnumerableResult": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InvoiceResponseDTO"
+            },
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InvoiceResponseDTOResult": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "data": {
+            "$ref": "#/components/schemas/InvoiceResponseDTO"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InvoiceType": {
+        "required": [
+          "invoiceName"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "invoiceName": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "invoices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Invoice"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InvoiceTypeResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "invoiceName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InvoiceTypeResponseDTOIEnumerableResult": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InvoiceTypeResponseDTO"
+            },
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginDTO": {
+        "required": [
+          "password",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "username": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
+          },
+          "password": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TehlikesizAtikDto": {
+        "type": "object",
+        "properties": {
+          "faaliyetVerisiKg": {
+            "type": "number",
+            "format": "double"
+          },
+          "toplamUretimKg": {
+            "type": "number",
+            "format": "double"
+          },
+          "invoiceId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TokenDTO": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "nullable": true
+          },
+          "expiration": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TokenDTOResult": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "data": {
+            "$ref": "#/components/schemas/TokenDTO"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "YanginTupuDto": {
+        "type": "object",
+        "properties": {
+          "faaliyetVerisiKg": {
+            "type": "number",
+            "format": "double"
+          },
+          "tupSayisi": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "toplamUretimTon": {
+            "type": "number",
+            "format": "double"
+          },
+          "invoiceId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "description": "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
+}

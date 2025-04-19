@@ -110,18 +110,108 @@ namespace EnvaTest.Services.Concrete
             }
         }
 
-        public async Task<Result<InvoiceResponseDTO>> GetInvoiceByIdAsync(long invoiceId)
+        public async Task<Result<IEnumerable<InvoiceResponseDTO>>> GetInvoiceByDateRangeAsync(InvoiceDateDTO dateRange, bool isAdmin, long currentUserId)
         {
             try
             {
-                var invoice = await _context.Invoices
+                if (!isAdmin && dateRange.CustomerId != currentUserId)
+                {
+                    return Result<IEnumerable<InvoiceResponseDTO>>.Error("Bu işlem için yetkiniz bulunmamaktadır.");
+                }
+
+                var query = _context.Invoices
                     .Include(i => i.InvoiceType)
                     .Include(i => i.Customer)
+                    .Where(i => i.CustomerId == dateRange.CustomerId);
+
+                if (dateRange != null)
+                {
+                    query = query.Where(i => i.CreatedAt >= dateRange.BaslangicTarihi && 
+                                           i.CreatedAt <= dateRange.BitisTarihi);
+                }
+
+                var invoices = await query
+                    .OrderByDescending(i => i.CreatedAt)
+                    .Select(i => new InvoiceResponseDTO
+                    {
+                        Id = i.Id,
+                        InvoicePath = i.InvoicePath,
+                        Amount = i.Amount,
+                        CustomerId = i.CustomerId,
+                        CustomerName = i.Customer.Name,
+                        InvoiceTypeId = i.InvoiceTypeId,
+                        InvoiceTypeName = i.InvoiceType.InvoiceName,
+                        CreatedAt = i.CreatedAt,
+                        UpdatedAt = i.UpdatedAt
+                    })
+                    .ToListAsync();
+
+                if (!invoices.Any())
+                    return Result<IEnumerable<InvoiceResponseDTO>>.NotFound("Belirtilen tarih aralığında fatura bulunamadı.");
+
+                return Result<IEnumerable<InvoiceResponseDTO>>.Success(invoices, "Faturalar başarıyla getirildi.");
+            }
+            catch (Exception ex)
+            {
+                return Result<IEnumerable<InvoiceResponseDTO>>.Error($"Faturalar getirilirken bir hata oluştu: {ex.Message}");
+            }
+        }
+
+        public async Task<Result<InvoiceResponseDTO>> UpdateInvoiceAsync(long invoiceId, InvoiceUpdateDTO updateDTO)
+        {
+            try
+            {
+                // Fatura kontrolü
+                var invoice = await _context.Invoices
+                    .Include(i => i.Customer)
+                    .Include(i => i.InvoiceType)
                     .FirstOrDefaultAsync(i => i.Id == invoiceId);
 
                 if (invoice == null)
                     return Result<InvoiceResponseDTO>.NotFound("Fatura bulunamadı.");
 
+                // Dosya güncelleme
+                if (updateDTO.InvoiceFile != null)
+                {
+                    // Dosya validasyonları
+                    if (!IsValidFileType(updateDTO.InvoiceFile))
+                        return Result<InvoiceResponseDTO>.Error("Geçersiz dosya formatı. Sadece PDF, JPG ve JPEG formatları kabul edilmektedir.");
+
+                    if (!IsValidFileSize(updateDTO.InvoiceFile))
+                        return Result<InvoiceResponseDTO>.Error("Dosya boyutu çok büyük. Maksimum dosya boyutu 10MB olmalıdır.");
+
+                    // Eski dosyayı silme
+                    var oldFilePath = Path.Combine(_environment.ContentRootPath, "Uploads", "Invoices", invoice.InvoicePath);
+                    if (File.Exists(oldFilePath))
+                    {
+                        File.Delete(oldFilePath);
+                    }
+
+                    // Yeni dosyayı kaydetme
+                    var fileName = await SaveInvoiceFileAsync(updateDTO.InvoiceFile, invoice.CustomerId);
+                    invoice.InvoicePath = fileName;
+                }
+
+                // Fatura tipi güncelleme
+                if (updateDTO.InvoiceTypeId.HasValue)
+                {
+                    var invoiceType = await _context.InvoiceTypes.FindAsync(updateDTO.InvoiceTypeId.Value);
+                    if (invoiceType == null)
+                        return Result<InvoiceResponseDTO>.NotFound("Geçersiz fatura tipi.");
+
+                    invoice.InvoiceTypeId = updateDTO.InvoiceTypeId.Value;
+                }
+
+                // Tutar güncelleme
+                if (updateDTO.Amount.HasValue)
+                {
+                    invoice.Amount = updateDTO.Amount.Value;
+                }
+
+                invoice.UpdatedAt = DateTime.UtcNow;
+                await _context.SaveChangesAsync();
+
+                // Response DTO oluşturma
                 var responseDTO = new InvoiceResponseDTO
                 {
                     Id = invoice.Id,
@@ -135,12 +225,47 @@ namespace EnvaTest.Services.Concrete
                     UpdatedAt = invoice.UpdatedAt
                 };
 
-                return Result<InvoiceResponseDTO>.Success(responseDTO, "Fatura başarıyla getirildi.");
+                return Result<InvoiceResponseDTO>.Success(responseDTO, "Fatura başarıyla güncellendi.");
             }
             catch (Exception ex)
             {
-                return Result<InvoiceResponseDTO>.Error($"Fatura getirilirken bir hata oluştu: {ex.Message}");
+                return Result<InvoiceResponseDTO>.Error($"Fatura güncellenirken bir hata oluştu: {ex.Message}");
             }
+        }
+
+        public async Task<Result<IEnumerable<InvoiceTypeResponseDTO>>> GetInvoiceTypesAsync()
+        {
+            try
+            {
+                var invoiceTypes = await _context.InvoiceTypes
+                    .Select(it => new InvoiceTypeResponseDTO
+                    {
+                        Id = it.Id,
+                        InvoiceName = it.InvoiceName
+                    })
+                    .ToListAsync();
+
+                if (!invoiceTypes.Any())
+                    return Result<IEnumerable<InvoiceTypeResponseDTO>>.NotFound("Fatura tipi bulunamadı.");
+
+                return Result<IEnumerable<InvoiceTypeResponseDTO>>.Success(invoiceTypes, "Fatura tipleri başarıyla getirildi.");
+            }
+            catch (Exception ex)
+            {
+                return Result<IEnumerable<InvoiceTypeResponseDTO>>.Error($"Fatura tipleri getirilirken bir hata oluştu: {ex.Message}");
+            }
+        }
+
+        private bool IsValidFileType(IFormFile file)
+        {
+            var allowedTypes = new[] { ".pdf", ".jpg", ".jpeg" };
+            var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
+            return allowedTypes.Contains(extension);
+        }
+
+        private bool IsValidFileSize(IFormFile file)
+        {
+            return file.Length <= 10 * 1024 * 1024; // 10MB
         }
 
         private async Task<string> SaveInvoiceFileAsync(IFormFile file, long customerId)

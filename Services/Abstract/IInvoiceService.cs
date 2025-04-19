@@ -8,6 +8,8 @@ namespace EnvaTest.Services.Abstract
     {
         Task<Result<InvoiceResponseDTO>> UploadInvoiceAsync(long customerId, InvoiceRequestDTO requestDTO);
         Task<Result<IEnumerable<InvoiceResponseDTO>>> GetCustomerInvoicesAsync(long customerId);
-        Task<Result<InvoiceResponseDTO>> GetInvoiceByIdAsync(long invoiceId);
+        Task<Result<IEnumerable<InvoiceResponseDTO>>> GetInvoiceByDateRangeAsync(InvoiceDateDTO dateRange, bool isAdmin, long currentUserId);
+        Task<Result<InvoiceResponseDTO>> UpdateInvoiceAsync(long invoiceId, InvoiceUpdateDTO updateDTO);
+        Task<Result<IEnumerable<InvoiceTypeResponseDTO>>> GetInvoiceTypesAsync();
     }
 } 

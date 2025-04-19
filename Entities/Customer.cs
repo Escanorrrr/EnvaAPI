@@ -46,7 +46,7 @@ namespace EnvaTest.Entities
 
         public bool Active { get; set; }
 
-        // Navigation property
+        
         public virtual ICollection<Invoice> Invoices { get; set; }
     }
 } 

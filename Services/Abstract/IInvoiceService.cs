@@ -11,5 +11,6 @@ namespace EnvaTest.Services.Abstract
         Task<Result<IEnumerable<InvoiceResponseDTO>>> GetInvoiceByDateRangeAsync(InvoiceDateDTO dateRange, bool isAdmin, long currentUserId);
         Task<Result<InvoiceResponseDTO>> UpdateInvoiceAsync(long invoiceId, InvoiceUpdateDTO updateDTO);
         Task<Result<IEnumerable<InvoiceTypeResponseDTO>>> GetInvoiceTypesAsync();
+        Task<Result<YearlyGHGResponseDTO>> GetYearlyGHGDataAsync(int year, long customerId);
     }
 } 

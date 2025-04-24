@@ -13,5 +13,6 @@ namespace EnvaTest.DTO
         public string InvoiceTypeName { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public double? GHG { get; set; }
     }
 } 

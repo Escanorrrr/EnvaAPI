@@ -98,7 +98,8 @@ namespace EnvaTest.Services.Concrete
                         InvoiceTypeId = i.InvoiceTypeId,
                         InvoiceTypeName = i.InvoiceType.InvoiceName,
                         CreatedAt = i.CreatedAt,
-                        UpdatedAt = i.UpdatedAt
+                        UpdatedAt = i.UpdatedAt,
+                        GHG = i.GHG
                     })
                     .ToListAsync();
 
@@ -142,7 +143,8 @@ namespace EnvaTest.Services.Concrete
                         InvoiceTypeId = i.InvoiceTypeId,
                         InvoiceTypeName = i.InvoiceType.InvoiceName,
                         CreatedAt = i.CreatedAt,
-                        UpdatedAt = i.UpdatedAt
+                        UpdatedAt = i.UpdatedAt,
+                        GHG = i.GHG
                     })
                     .ToListAsync();
 
@@ -253,6 +255,51 @@ namespace EnvaTest.Services.Concrete
             catch (Exception ex)
             {
                 return Result<IEnumerable<InvoiceTypeResponseDTO>>.Error($"Fatura tipleri getirilirken bir hata oluştu: {ex.Message}");
+            }
+        }
+
+        public async Task<Result<YearlyGHGResponseDTO>> GetYearlyGHGDataAsync(int year, long customerId)
+        {
+            try
+            {
+                var startDate = new DateTime(year, 1, 1);
+                var endDate = new DateTime(year, 12, 31);
+
+                var invoices = await _context.Invoices
+                    .Where(i => i.CustomerId == customerId &&
+                           i.CreatedAt.Year == year)
+                    .ToListAsync();
+
+                if (!invoices.Any())
+                    return Result<YearlyGHGResponseDTO>.NotFound($"{year} yılına ait fatura bulunamadı.");
+
+                var response = new YearlyGHGResponseDTO { Year = year };
+
+                // Türkçe ay isimleri
+                var turkishMonths = new[] { "Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", 
+                                          "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık" };
+
+                // Her ay için veri hazırla
+                for (int month = 1; month <= 12; month++)
+                {
+                    var monthlyInvoices = invoices.Where(i => i.CreatedAt.Month == month).ToList();
+                    
+                    var monthlyData = new MonthlyGHGData
+                    {
+                        Month = month,
+                        MonthName = turkishMonths[month - 1],
+                        TotalGHG = monthlyInvoices.Sum(i => i.GHG ?? 0.0),
+                        InvoiceCount = monthlyInvoices.Count
+                    };
+
+                    response.MonthlyData.Add(monthlyData);
+                }
+
+                return Result<YearlyGHGResponseDTO>.Success(response, $"{year} yılı GHG verileri başarıyla getirildi.");
+            }
+            catch (Exception ex)
+            {
+                return Result<YearlyGHGResponseDTO>.Error($"GHG verileri getirilirken bir hata oluştu: {ex.Message}");
             }
         }
 

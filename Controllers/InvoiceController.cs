@@ -60,5 +60,13 @@ namespace EnvaTest.Controllers
             var result = await _invoiceService.GetInvoiceTypesAsync();
             return StatusCode(result.StatusCode, result);
         }
+
+        [HttpGet("yearly-ghg/{year}")]
+        public async Task<ActionResult<Result<YearlyGHGResponseDTO>>> GetYearlyGHGData(int year)
+        {
+            var customerId = long.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var result = await _invoiceService.GetYearlyGHGDataAsync(year, customerId);
+            return StatusCode(result.StatusCode, result);
+        }
     }
 } 

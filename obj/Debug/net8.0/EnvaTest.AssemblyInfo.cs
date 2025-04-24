@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EnvaTest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0e5968b856448d9bce4bfe0c9a3a89c86d1b5be7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e04bdb96d71274671725dcb45f8c2896c57f2c24")]
 [assembly: System.Reflection.AssemblyProductAttribute("EnvaTest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EnvaTest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

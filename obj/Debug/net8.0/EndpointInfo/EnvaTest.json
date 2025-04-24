@@ -795,6 +795,46 @@
           }
         }
       }
+    },
+    "/api/Invoice/yearly-ghg/{year}": {
+      "get": {
+        "tags": [
+          "Invoice"
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/YearlyGHGResponseDTOResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/YearlyGHGResponseDTOResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/YearlyGHGResponseDTOResult"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1258,6 +1298,11 @@
           "updatedAt": {
             "type": "string",
             "format": "date-time"
+          },
+          "ghg": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1380,6 +1425,28 @@
         },
         "additionalProperties": false
       },
+      "MonthlyGHGData": {
+        "type": "object",
+        "properties": {
+          "month": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "monthName": {
+            "type": "string",
+            "nullable": true
+          },
+          "totalGHG": {
+            "type": "number",
+            "format": "double"
+          },
+          "invoiceCount": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "TehlikesizAtikDto": {
         "type": "object",
         "properties": {
@@ -1447,6 +1514,40 @@
           "invoiceId": {
             "type": "integer",
             "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "YearlyGHGResponseDTO": {
+        "type": "object",
+        "properties": {
+          "year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "monthlyData": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MonthlyGHGData"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "YearlyGHGResponseDTOResult": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "data": {
+            "$ref": "#/components/schemas/YearlyGHGResponseDTO"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

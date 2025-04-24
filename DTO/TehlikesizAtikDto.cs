@@ -6,5 +6,4 @@ namespace EnvaTest.DTO
         public double ToplamUretimKg { get; set; }
         public long InvoiceId { get; set; }
     }
-
 }

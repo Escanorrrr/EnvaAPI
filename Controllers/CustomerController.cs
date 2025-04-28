@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EnvaTest.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class CustomerController : ControllerBase
@@ -19,6 +19,7 @@ namespace EnvaTest.Controllers
             _customerService = customerService;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetAllCustomers")]
         public async Task<ActionResult<Result<IEnumerable<CustomerListDTO>>>> GetCustomers()
         {
@@ -33,6 +34,7 @@ namespace EnvaTest.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("CreateCustomer")]
         public async Task<ActionResult<Result<Customer>>> CreateCustomer(CustomerCreateDTO customerDTO)
         {
@@ -40,6 +42,7 @@ namespace EnvaTest.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("UpdateCustomer/{id}")]
         public async Task<ActionResult<Result<Customer>>> UpdateCustomer(long id, CustomerUpdateDTO customerDTO)
         {
@@ -47,6 +50,7 @@ namespace EnvaTest.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("UpdateCustomerStatus/{id}")]
         public async Task<ActionResult<Result<Customer>>> UpdateCustomerStatus(long id, [FromQuery] bool isActive)
         {

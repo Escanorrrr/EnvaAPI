@@ -5,16 +5,20 @@ using EnvaTest.Services.Abstract;
 using Microsoft.EntityFrameworkCore;
 using BC = BCrypt.Net.BCrypt;
 using EnvaTest.Context;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace EnvaTest.Services.Concrete
 {
     public class CustomerService : ICustomerService
     {
         private readonly EnvaContext _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CustomerService(EnvaContext context)
+        public CustomerService(EnvaContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<Result<IEnumerable<CustomerListDTO>>> GetAllCustomersAsync()
@@ -49,6 +53,16 @@ namespace EnvaTest.Services.Concrete
         {
             try
             {
+                // Kullanıcının rolünü ve ID'sini kontrol et
+                var userRole = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Role)?.Value;
+                var userCustomerId = _httpContextAccessor.HttpContext.User.FindFirst("CustomerId")?.Value;
+
+                // Admin değilse ve kendi ID'si değilse erişimi engelle
+                if (userRole != "Admin" && (!long.TryParse(userCustomerId, out long currentCustomerId) || currentCustomerId != id))
+                {
+                    return Result<Customer>.Error("Bu müşteri bilgilerine erişim yetkiniz bulunmamaktadır");
+                }
+
                 var customer = await _context.Customers.FindAsync(id);
                 if (customer == null)
                     return Result<Customer>.NotFound($"ID: {id} olan müşteri bulunamadı");

@@ -79,7 +79,9 @@ builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IInvoiceService, InvoiceService>();
 builder.Services.AddScoped<ICalculatorService, CalculatorService>();
+builder.Services.AddScoped<IFormulService, FormulService>();
 builder.Services.AddScoped<TokenHelper>();
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDbContext<EnvaContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),

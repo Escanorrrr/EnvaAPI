@@ -21,7 +21,8 @@ namespace EnvaTest.Controllers
         [HttpPost("tehlikesiz-atik")]
         public async Task<ActionResult<Result<double>>> CalculateTehlikesizAtik([FromBody] TehlikesizAtikDto dto)
         {
-            if (dto == null || dto.FaaliyetVerisiKg <= 0 || dto.ToplamUretimKg <= 0 || dto.InvoiceId <= 0)
+            if (dto == null || dto.FaaliyetVerisiKg <= 0 || dto.ToplamUretimKg <= 0 || 
+                dto.InvoiceId <= 0 || dto.CustomerId <= 0)
                 return Result<double>.Error("Geçerli veri girilmelidir.");
 
             try
@@ -42,7 +43,8 @@ namespace EnvaTest.Controllers
         [HttpPost("yangin-tupu")]
         public async Task<ActionResult<Result<double>>> CalculateYanginTupu([FromBody] YanginTupuDto dto)
         {
-            if (dto == null || dto.FaaliyetVerisiKg <= 0 || dto.TupSayisi <= 0 || dto.ToplamUretimTon <= 0 || dto.InvoiceId <= 0)
+            if (dto == null || dto.FaaliyetVerisiKg <= 0 || dto.TupSayisi <= 0 || 
+                dto.ToplamUretimTon <= 0 || dto.InvoiceId <= 0 || dto.CustomerId <= 0)
                 return Result<double>.Error("Geçerli veri girilmelidir.");
 
             try
@@ -63,7 +65,8 @@ namespace EnvaTest.Controllers
         [HttpPost("dogalgaz")]
         public async Task<ActionResult<Result<double>>> CalculateDogalgaz([FromBody] DogalgazDto dto)
         {
-            if (dto == null || dto.FaaliyetVerisiM3 <= 0 || dto.ToplamUretimTon <= 0 || dto.InvoiceId <= 0)
+            if (dto == null || dto.FaaliyetVerisiM3 <= 0 || 
+                dto.ToplamUretimTon <= 0 || dto.InvoiceId <= 0 || dto.CustomerId <= 0)
                 return Result<double>.Error("Geçerli veri girilmelidir.");
 
             try
@@ -84,7 +87,8 @@ namespace EnvaTest.Controllers
         [HttpPost("dizel")]
         public async Task<ActionResult<Result<double>>> CalculateDizel([FromBody] DizelDto dto)
         {
-            if (dto == null || dto.FaaliyetVerisiLitre <= 0 || dto.ToplamUretimTon <= 0 || dto.InvoiceId <= 0)
+            if (dto == null || dto.FaaliyetVerisiLitre <= 0 || 
+                dto.ToplamUretimTon <= 0 || dto.InvoiceId <= 0 || dto.CustomerId <= 0)
                 return Result<double>.Error("Geçerli veri girilmelidir.");
 
             try

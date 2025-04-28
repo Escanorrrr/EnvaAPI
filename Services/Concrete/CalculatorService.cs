@@ -8,10 +8,12 @@ namespace EnvaTest.Services.Concrete
     public class CalculatorService : ICalculatorService
     {
         private readonly EnvaContext _context;
+        private readonly IFormulService _formulService;
 
-        public CalculatorService(EnvaContext context)
+        public CalculatorService(EnvaContext context, IFormulService formulService)
         {
             _context = context;
+            _formulService = formulService;
         }
 
         public async Task<double> CalculateTehlikesizAtikEmisyonu(TehlikesizAtikDto dto)
@@ -29,14 +31,43 @@ namespace EnvaTest.Services.Concrete
 
             var sonuc = ghgTon / dto.ToplamUretimKg;
 
-            // Hesaplama sonucunu faturaya kaydet
-            var invoice = await _context.Invoices.FindAsync(dto);
-            if (invoice != null)
+            // Müşteriye ait formülleri kontrol et
+            var formulas = await _formulService.GetFormulasByCustomerIdAsync(dto.CustomerId);
+            
+            if (formulas != null && formulas.Any())
             {
-                invoice.GHG = sonuc;
-                invoice.UpdatedAt = DateTime.UtcNow;
-                await _context.SaveChangesAsync();
+                foreach (var formula in formulas)
+                {
+                    // Operation tipine göre işlem yap
+                    switch (formula.Operation)
+                    {
+                        case "1": // Toplama
+                            sonuc += formula.Amount;
+                            break;
+                        case "2": // Çıkarma
+                            sonuc -= formula.Amount;
+                            break;
+                        case "3": // Çarpma
+                            sonuc *= formula.Amount;
+                            break;
+                        case "4": // Bölme
+                            if (formula.Amount != 0)
+                                sonuc /= formula.Amount;
+                            break;
+                    }
+                }
             }
+
+            // Hesaplama sonucunu faturaya kaydet
+            var invoice = await _context.Invoices.FindAsync(dto.InvoiceId);
+            if (invoice == null)
+                throw new Exception($"Fatura bulunamadı. ID: {dto.InvoiceId}");
+
+            invoice.GHG = sonuc;
+            invoice.UpdatedAt = DateTime.UtcNow;
+            
+            _context.Invoices.Update(invoice);
+            await _context.SaveChangesAsync();
 
             return sonuc;
         }
@@ -45,27 +76,54 @@ namespace EnvaTest.Services.Concrete
         {
             const double kacacakEmisyonOrani = 0.04;
             const double conversionFactor = 0.001;
-            
 
             double ghgTon = dto.FaaliyetVerisiKg
                             * dto.TupSayisi
                             * kacacakEmisyonOrani
                             * conversionFactor;
-                           
 
             if (dto.ToplamUretimTon == 0)
                 throw new DivideByZeroException("Toplam üretim 0 olamaz.");
 
             var sonuc = ghgTon / dto.ToplamUretimTon;
 
+            // Müşteriye ait formülleri kontrol et
+            var formulas = await _formulService.GetFormulasByCustomerIdAsync(dto.CustomerId);
+            
+            if (formulas != null && formulas.Any())
+            {
+                foreach (var formula in formulas)
+                {
+                    // Operation tipine göre işlem yap
+                    switch (formula.Operation)
+                    {
+                        case "1": // Toplama
+                            sonuc += formula.Amount;
+                            break;
+                        case "2": // Çıkarma
+                            sonuc -= formula.Amount;
+                            break;
+                        case "3": // Çarpma
+                            sonuc *= formula.Amount;
+                            break;
+                        case "4": // Bölme
+                            if (formula.Amount != 0)
+                                sonuc /= formula.Amount;
+                            break;
+                    }
+                }
+            }
+
             // Hesaplama sonucunu faturaya kaydet
             var invoice = await _context.Invoices.FindAsync(dto.InvoiceId);
-            if (invoice != null)
-            {
-                invoice.GHG = sonuc;
-                invoice.UpdatedAt = DateTime.UtcNow;
-                await _context.SaveChangesAsync();
-            }
+            if (invoice == null)
+                throw new Exception($"Fatura bulunamadı. ID: {dto.InvoiceId}");
+
+            invoice.GHG = sonuc;
+            invoice.UpdatedAt = DateTime.UtcNow;
+            
+            _context.Invoices.Update(invoice);
+            await _context.SaveChangesAsync();
 
             return sonuc;
         }
@@ -95,14 +153,43 @@ namespace EnvaTest.Services.Concrete
 
             var sonuc = toplamCO2e / dto.ToplamUretimTon;
 
+            // Müşteriye ait formülleri kontrol et
+            var formulas = await _formulService.GetFormulasByCustomerIdAsync(dto.CustomerId);
+            
+            if (formulas != null && formulas.Any())
+            {
+                foreach (var formula in formulas)
+                {
+                    // Operation tipine göre işlem yap
+                    switch (formula.Operation)
+                    {
+                        case "1": // Toplama
+                            sonuc += formula.Amount;
+                            break;
+                        case "2": // Çıkarma
+                            sonuc -= formula.Amount;
+                            break;
+                        case "3": // Çarpma
+                            sonuc *= formula.Amount;
+                            break;
+                        case "4": // Bölme
+                            if (formula.Amount != 0)
+                                sonuc /= formula.Amount;
+                            break;
+                    }
+                }
+            }
+
             // Hesaplama sonucunu faturaya kaydet
             var invoice = await _context.Invoices.FindAsync(dto.InvoiceId);
-            if (invoice != null)
-            {
-                invoice.GHG = sonuc;
-                invoice.UpdatedAt = DateTime.UtcNow;
-                await _context.SaveChangesAsync();
-            }
+            if (invoice == null)
+                throw new Exception($"Fatura bulunamadı. ID: {dto.InvoiceId}");
+
+            invoice.GHG = sonuc;
+            invoice.UpdatedAt = DateTime.UtcNow;
+            
+            _context.Invoices.Update(invoice);
+            await _context.SaveChangesAsync();
 
             return sonuc;
         }
@@ -131,14 +218,43 @@ namespace EnvaTest.Services.Concrete
 
             var sonuc = toplamCO2e / dto.ToplamUretimTon;
 
+            // Müşteriye ait formülleri kontrol et
+            var formulas = await _formulService.GetFormulasByCustomerIdAsync(dto.CustomerId);
+            
+            if (formulas != null && formulas.Any())
+            {
+                foreach (var formula in formulas)
+                {
+                    // Operation tipine göre işlem yap
+                    switch (formula.Operation)
+                    {
+                        case "1": // Toplama
+                            sonuc += formula.Amount;
+                            break;
+                        case "2": // Çıkarma
+                            sonuc -= formula.Amount;
+                            break;
+                        case "3": // Çarpma
+                            sonuc *= formula.Amount;
+                            break;
+                        case "4": // Bölme
+                            if (formula.Amount != 0)
+                                sonuc /= formula.Amount;
+                            break;
+                    }
+                }
+            }
+
             // Hesaplama sonucunu faturaya kaydet
             var invoice = await _context.Invoices.FindAsync(dto.InvoiceId);
-            if (invoice != null)
-            {
-                invoice.GHG = sonuc;
-                invoice.UpdatedAt = DateTime.UtcNow;
-                await _context.SaveChangesAsync();
-            }
+            if (invoice == null)
+                throw new Exception($"Fatura bulunamadı. ID: {dto.InvoiceId}");
+
+            invoice.GHG = sonuc;
+            invoice.UpdatedAt = DateTime.UtcNow;
+            
+            _context.Invoices.Update(invoice);
+            await _context.SaveChangesAsync();
 
             return sonuc;
         }

@@ -5,6 +5,8 @@ using EnvaTest.Result;
 using EnvaTest.Services.Abstract;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace EnvaTest.Services.Concrete
 {
@@ -12,11 +14,13 @@ namespace EnvaTest.Services.Concrete
     {
         private readonly EnvaContext _context;
         private readonly IHostEnvironment _environment;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public InvoiceService(EnvaContext context, IHostEnvironment environment)
+        public InvoiceService(EnvaContext context, IHostEnvironment environment, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _environment = environment;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<Result<InvoiceResponseDTO>> UploadInvoiceAsync(long customerId, InvoiceRequestDTO requestDTO)
@@ -262,6 +266,26 @@ namespace EnvaTest.Services.Concrete
         {
             try
             {
+                // Kullanıcının rolünü ve ID'sini kontrol et
+                var userRole = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Role)?.Value;
+                var userCustomerIdClaim = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                if (string.IsNullOrEmpty(userCustomerIdClaim))
+                {
+                    return Result<YearlyGHGResponseDTO>.Error("Kullanıcı bilgisi bulunamadı");
+                }
+
+                if (!long.TryParse(userCustomerIdClaim, out long currentCustomerId))
+                {
+                    return Result<YearlyGHGResponseDTO>.Error("Geçersiz kullanıcı ID'si");
+                }
+
+                // Admin değilse ve kendi ID'si değilse erişimi engelle
+                if (userRole != "Admin" && currentCustomerId != customerId)
+                {
+                    return Result<YearlyGHGResponseDTO>.Error("Bu GHG verilerine erişim yetkiniz bulunmamaktadır");
+                }
+
                 var startDate = new DateTime(year, 1, 1);
                 var endDate = new DateTime(year, 12, 31);
 

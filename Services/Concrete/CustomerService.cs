@@ -55,7 +55,7 @@ namespace EnvaTest.Services.Concrete
             {
                 // Kullanıcının rolünü ve ID'sini kontrol et
                 var userRole = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Role)?.Value;
-                var userCustomerId = _httpContextAccessor.HttpContext.User.FindFirst("CustomerId")?.Value;
+                var userCustomerId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
                 // Admin değilse ve kendi ID'si değilse erişimi engelle
                 if (userRole != "Admin" && (!long.TryParse(userCustomerId, out long currentCustomerId) || currentCustomerId != id))

@@ -1061,6 +1061,14 @@
               "type": "integer",
               "format": "int32"
             }
+          },
+          {
+            "name": "customerId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
         ],
         "responses": {

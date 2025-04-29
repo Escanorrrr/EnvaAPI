@@ -62,11 +62,21 @@ namespace EnvaTest.Controllers
         }
 
         [HttpGet("yearly-ghg/{year}")]
-        public async Task<ActionResult<Result<YearlyGHGResponseDTO>>> GetYearlyGHGData(int year)
+        public async Task<ActionResult<Result<YearlyGHGResponseDTO>>> GetYearlyGHGData(int year, [FromQuery] long? customerId = null)
         {
-            var customerId = long.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            var result = await _invoiceService.GetYearlyGHGDataAsync(year, customerId);
-            return StatusCode(result.StatusCode, result);
+            var isAdmin = User.IsInRole("Admin");
+            var currentUserId = long.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
+            // Admin değilse veya customerId parametresi yoksa kendi verilerini getir
+            if (!isAdmin || !customerId.HasValue)
+            {
+                var result = await _invoiceService.GetYearlyGHGDataAsync(year, currentUserId);
+                return StatusCode(result.StatusCode, result);
+            }
+
+            // Admin ise ve customerId parametresi varsa, o müşterinin verilerini getir
+            var adminResult = await _invoiceService.GetYearlyGHGDataAsync(year, customerId.Value);
+            return StatusCode(adminResult.StatusCode, adminResult);
         }
     }
 } 

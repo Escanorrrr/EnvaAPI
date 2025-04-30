@@ -78,5 +78,12 @@ namespace EnvaTest.Controllers
             var adminResult = await _invoiceService.GetYearlyGHGDataAsync(year, customerId.Value);
             return StatusCode(adminResult.StatusCode, adminResult);
         }
+
+        [HttpGet("ghg-by-type")]
+        public async Task<ActionResult<Result<Dictionary<string, double>>>> GetGHGByType([FromQuery] long customerId)
+        {
+            var result = await _invoiceService.GetGHGByTypeAsync(customerId);
+            return StatusCode(result.StatusCode, result);
+        }
     }
 } 

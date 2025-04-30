@@ -21,7 +21,6 @@ namespace EnvaTest.DTO
         public string Operation { get; set; }
 
         [Required]
-        [Range(0.01, double.MaxValue)]
         public double Amount { get; set; }
     }
 } 

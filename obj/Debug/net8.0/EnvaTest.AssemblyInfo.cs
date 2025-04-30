@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EnvaTest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7908780919bca6e248cd91b1f9b9339cb5457e30")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0cda76a7393e07319d6b6b603adbd1597ecd40aa")]
 [assembly: System.Reflection.AssemblyProductAttribute("EnvaTest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EnvaTest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

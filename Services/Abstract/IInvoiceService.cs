@@ -12,5 +12,6 @@ namespace EnvaTest.Services.Abstract
         Task<Result<InvoiceResponseDTO>> UpdateInvoiceAsync(long invoiceId, InvoiceUpdateDTO updateDTO);
         Task<Result<IEnumerable<InvoiceTypeResponseDTO>>> GetInvoiceTypesAsync();
         Task<Result<YearlyGHGResponseDTO>> GetYearlyGHGDataAsync(int year, long customerId);
+        Task<Result<Dictionary<string, double>>> GetGHGByTypeAsync(long customerId);
     }
 } 

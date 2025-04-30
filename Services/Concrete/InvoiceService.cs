@@ -327,6 +327,56 @@ namespace EnvaTest.Services.Concrete
             }
         }
 
+        public async Task<Result<Dictionary<string, double>>> GetGHGByTypeAsync(long customerId)
+        {
+            try
+            {
+                // Kullanıcının rolünü ve ID'sini kontrol et
+                var userRole = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Role)?.Value;
+                var userCustomerIdClaim = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                if (string.IsNullOrEmpty(userCustomerIdClaim))
+                {
+                    return Result<Dictionary<string, double>>.Error("Kullanıcı bilgisi bulunamadı");
+                }
+
+                if (!long.TryParse(userCustomerIdClaim, out long currentCustomerId))
+                {
+                    return Result<Dictionary<string, double>>.Error("Geçersiz kullanıcı ID'si");
+                }
+
+                // Admin değilse ve kendi ID'si değilse erişimi engelle
+                if (userRole != "Admin" && currentCustomerId != customerId)
+                {
+                    return Result<Dictionary<string, double>>.Error("Bu verilere erişim yetkiniz bulunmamaktadır");
+                }
+
+                // Faturaları ve tiplerini çek
+                var invoices = await _context.Invoices
+                    .Where(i => i.CustomerId == customerId)
+                    .Include(i => i.InvoiceType)
+                    .ToListAsync();
+
+                var result = new Dictionary<string, double>();
+
+                var grouped = invoices
+                    .GroupBy(i => i.InvoiceType.InvoiceName)
+                    .ToList();
+
+                foreach (var group in grouped)
+                {
+                    var totalGHG = group.Sum(i => i.GHG ?? 0.0);
+                    result[group.Key] = totalGHG;
+                }
+
+                return Result<Dictionary<string, double>>.Success(result, "Fatura tiplerine göre toplam GHG değerleri başarıyla getirildi.");
+            }
+            catch (Exception ex)
+            {
+                return Result<Dictionary<string, double>>.Error($"GHG verileri getirilirken bir hata oluştu: {ex.Message}");
+            }
+        }
+
         private bool IsValidFileType(IFormFile file)
         {
             var allowedTypes = new[] { ".pdf", ".jpg", ".jpeg" };

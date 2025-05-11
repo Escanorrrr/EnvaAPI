@@ -27,6 +27,32 @@
   },
   {
     "ContainingType": "EnvaTest.Controllers.CalculatorController",
+    "Method": "CalculateBuhar",
+    "RelativePath": "api/Calculator/buhar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "EnvaTest.DTO.BuharDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "EnvaTest.Result.Result\u00601[[System.Double, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "EnvaTest.Controllers.CalculatorController",
     "Method": "CalculateDizel",
     "RelativePath": "api/Calculator/dizel",
     "HttpMethod": "POST",
@@ -62,6 +88,58 @@
       {
         "Name": "dto",
         "Type": "EnvaTest.DTO.DogalgazDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "EnvaTest.Result.Result\u00601[[System.Double, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "EnvaTest.Controllers.CalculatorController",
+    "Method": "CalculateElektrik",
+    "RelativePath": "api/Calculator/elektrik",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "EnvaTest.DTO.ElektrikDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "EnvaTest.Result.Result\u00601[[System.Double, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "EnvaTest.Controllers.CalculatorController",
+    "Method": "CalculateTehlikeliAtik",
+    "RelativePath": "api/Calculator/tehlikeli-atik",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "EnvaTest.DTO.TehlikeliAtikDto",
         "IsRequired": true
       }
     ],

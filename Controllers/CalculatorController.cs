@@ -105,6 +105,69 @@ namespace EnvaTest.Controllers
                 return Result<double>.Error("Hesaplama sırasında bir hata oluştu.");
             }
         }
+
+        [HttpPost("elektrik")]
+        public async Task<ActionResult<Result<double>>> CalculateElektrik([FromBody] ElektrikDto dto)
+        {
+            if (dto == null || dto.FaaliyetVerisiKwh <= 0 || dto.ToplamUretimKg <= 0 || dto.InvoiceId <= 0 || dto.CustomerId <= 0)
+                return Result<double>.Error("Geçerli veri girilmelidir.");
+
+            try
+            {
+                double sonuc = await _calculatorService.CalculateElektrikEmisyonu(dto);
+                return Result<double>.Success(sonuc, "Elektrik karbon ayak izi hesaplandı.");
+            }
+            catch (DivideByZeroException ex)
+            {
+                return Result<double>.Error(ex.Message);
+            }
+            catch (Exception)
+            {
+                return Result<double>.Error("Hesaplama sırasında bir hata oluştu.");
+            }
+        }
+
+        [HttpPost("buhar")]
+        public async Task<ActionResult<Result<double>>> CalculateBuhar([FromBody] BuharDto dto)
+        {
+            if (dto == null || dto.FaaliyetVerisiTon <= 0 || dto.ToplamUretimTon <= 0 || dto.InvoiceId <= 0 || dto.CustomerId <= 0)
+                return Result<double>.Error("Geçerli veri girilmelidir.");
+
+            try
+            {
+                double sonuc = await _calculatorService.CalculateBuharEmisyonu(dto);
+                return Result<double>.Success(sonuc, "Buhar karbon ayak izi hesaplandı.");
+            }
+            catch (DivideByZeroException ex)
+            {
+                return Result<double>.Error(ex.Message);
+            }
+            catch (Exception)
+            {
+                return Result<double>.Error("Hesaplama sırasında bir hata oluştu.");
+            }
+        }
+
+        [HttpPost("tehlikeli-atik")]
+        public async Task<ActionResult<Result<double>>> CalculateTehlikeliAtik([FromBody] TehlikeliAtikDto dto)
+        {
+            if (dto == null || dto.FaaliyetVerisiKg <= 0 || dto.ToplamUretimKg <= 0 || dto.InvoiceId <= 0 || dto.CustomerId <= 0)
+                return Result<double>.Error("Geçerli veri girilmelidir.");
+
+            try
+            {
+                double sonuc = await _calculatorService.CalculateTehlikeliAtikEmisyonu(dto);
+                return Result<double>.Success(sonuc, "Tehlikeli atık karbon ayak izi hesaplandı.");
+            }
+            catch (DivideByZeroException ex)
+            {
+                return Result<double>.Error(ex.Message);
+            }
+            catch (Exception)
+            {
+                return Result<double>.Error("Hesaplama sırasında bir hata oluştu.");
+            }
+        }
     }
 }
     
